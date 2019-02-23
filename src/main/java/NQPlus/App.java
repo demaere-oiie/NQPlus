@@ -154,7 +154,7 @@ public class App {
         try {
             // default to standard chessboard
             int n = (args.length<1 ? 8 : Integer.valueOf(args[0]));
-            if(n<0 || n>25) { n /= 0; } // throw exception
+            if(n<0 || n>25) { throw new Exception(); }
 
             boolean solns = false;
             for(List<Place> solution : new Board(n).placeQueens()) {
