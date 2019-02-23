@@ -30,7 +30,7 @@ the alignment constraint
 is handled by blacklisting.
 
 ### Usage
-Example:
+For example,
 `./gradlew run --args 8`
 to get solutions
-for a normal chessboard
+for a normal chessboard.
