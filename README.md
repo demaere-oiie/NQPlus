@@ -16,7 +16,7 @@ and the lack of streaming for the solutions
 mean N>16 is already
 prohibitive to compute.
 
-## About the algorithm
+### About the algorithm
 
 Recursive backtracking.
 Several parts of the program
@@ -28,3 +28,9 @@ Queen attacking is handled
 by simple predicates;
 the alignment constraint
 is handled by blacklisting.
+
+### Usage
+Example:
+`./gradlew run --args 8`
+to get solutions
+for a normal chessboard
