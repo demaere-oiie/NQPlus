@@ -95,6 +95,7 @@ class Board {
         // check for attacks by existing queens
         for( Place q : queens ) {
             // assumption! we always place on a new file
+	    // so no check for vertical attack
             if(q.rank == y) {
                 return false; // horizontal attack
             }
@@ -153,8 +154,9 @@ public class App {
         try {
             // default to standard chessboard
             int n = (args.length<1 ? 8 : Integer.valueOf(args[0]));
+            if(n<0 || n>25) { n /= 0; } // throw exception
+
             boolean solns = false;
-            if(n<0 || n>25) { n /= 0; }
             for(List<Place> solution : new Board(n).placeQueens()) {
                 solns = true;
                 System.out.println(solution);
@@ -163,8 +165,9 @@ public class App {
                 System.err.println("** no sol'ns **");
             }
         } catch(Exception e) {
-            System.out.println("Usage: NQueensApp <N>");
-            System.out.println("     N must be in 0..25");
+            System.err.println("Usage: ./gradlew run --args <N>");
+            System.err.println("     N must be in 0..25");
+	    System.exit(1);
 	}
     }
 }
