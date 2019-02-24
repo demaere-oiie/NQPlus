@@ -25,6 +25,10 @@ public class Place {
      * alignedPlaces generates the set of squares in subsequent files
      * which are aligned with this Place and the other Place.  These
      * places hence must be avoided by subsequent queens.
+     *
+     * @param b     the current board
+     * @param other square to align with
+     * @return set of Places to be avoided
      */
     public Set<Place> alignedPlaces(Board b, Place other) {
         Set<Place> avoid = new HashSet<Place>();

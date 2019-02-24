@@ -5,20 +5,29 @@ import nqplus.Place;
 /**
  * Boards are value objects holding the intermediate states of our algorithm.
  */
-class Board {
-    public int n;               // size of the board
-    public List<Place> queens;  // queens placed so far
-    public Set<Place> avoid;    // squares to avoid due to alignment
+public class Board {
+    /** size of the board */
+    public int n;
+    /** queens placed so far */
+    public List<Place> queens; 
+    /** squares to avoid due to alignment */
+    public Set<Place> avoid;
+
     /**
-     * construct a blank Board of size n_
+     * construct a blank Board
+     *
+     * @param n size of Board
      */
-    public Board(int n_) {
-        n = n_;
+    public Board(int n) {
+        this.n = n;
         queens = new ArrayList<Place>();
         avoid  = new HashSet<Place>();
     }
     /**
      * construct a Board similar to b with the addition of latest
+     *
+     * @param b      previous board state
+     * @param latest new queen position
      */
     private Board(Board b,Place latest) {
         n = b.n;
@@ -32,7 +41,11 @@ class Board {
         }
     }
     /**
-     * isOK checks if a queen could be placed at (x,y)
+     * isOK checks possible queen placement
+     *
+     * @param x file to check
+     * @param y rank to check
+     * @return if a queen could be placed at (x,y)
      */
     private boolean isOK(int x, int y) {
         // check for attacks by existing queens
@@ -51,6 +64,8 @@ class Board {
     }   
     /**
      * placeQueens recursively places queens on new files, from left to right
+     *
+     * @return solutions on this branch
      */
     public List<List<Place>> placeQueens() {
         List<List<Place>> solutions = new ArrayList<List<Place>>();
