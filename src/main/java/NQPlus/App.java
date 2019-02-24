@@ -57,6 +57,18 @@ class Place {
         // !! FIXME: notation for large boards
         return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".substring(file,file+1) + (rank+1);
     }
+    /** Override equals for value semantics */
+    public boolean equals(Object other) {
+	if(other instanceof Place)	{
+	    Place p = (Place)other;
+	    return this.file == p.file && this.rank == p.rank;
+	}
+	return false;
+    }
+    /** Override hashCode for value semantics */
+    public int hashCode() {
+	return 31*file + rank;
+    }
 }
 
 /**
@@ -104,10 +116,8 @@ class Board {
             }
         }
         // check that we avoid alignment
-        for( Place a : avoid ) {
-            if(a.file == x && a.rank == y) { 
-                return false;
-            }
+	if(avoid.contains(new Place(x,y))) {
+            return false;
         }
         return true;
     }   
