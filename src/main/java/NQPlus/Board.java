@@ -41,26 +41,27 @@ public class Board {
         }
     }
     /**
-     * isOK checks possible queen placement
+     * tryPlace checks possible queen placement
      *
      * @param x file to check
      * @param y rank to check
-     * @return if a queen could be placed at (x,y)
+     * @return Place if a queen could be placed at (x,y) otherwise null
      */
-    private boolean isOK(int x, int y) {
+    private Place tryPlace(int x, int y) {
         // check for attacks by existing queens
         for( Place q : queens ) {
             // assumption! we always place on a new file
 	    // so no check for vertical attack
             if(q.rank == y) {
-                return false; // horizontal attack
+                return null; // horizontal attack
             }
             if(Math.abs(x - q.file) == Math.abs(y - q.rank)) {
-                return false; // diagonal attack
+                return null; // diagonal attack
             }
         }
+	Place p = new Place(x,y);
         // check that we avoid alignment
-        return !avoid.contains(new Place(x,y));
+        return (avoid.contains(p) ? null : p);
     }   
     /**
      * placeQueens recursively places queens on new files, from left to right
@@ -76,10 +77,10 @@ public class Board {
             // otherwise solve for next file and recurse
             int x = queens.size();
             for(int y = 0; y < n; y++) {
-                if(isOK(x,y)) {
-                    Board b1 = new Board(this,new Place(x,y));
-                    for(List<Place> solution : b1.placeQueens()) {
-                        solutions.add(solution);
+		Place p = tryPlace(x,y);
+                if(p != null) {
+                    for(List<Place> soln : new Board(this,p).placeQueens()) {
+                        solutions.add(soln);
                     }
                 }
             }
