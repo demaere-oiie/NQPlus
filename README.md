@@ -9,7 +9,7 @@
 
 We limit N
 to between 0 and 25
-for the algebraic chess notation,
+for the algebraic chess [notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)),
 but this is no great loss,
 as the complexity of the algorithm
 and the lack of streaming for the solutions
