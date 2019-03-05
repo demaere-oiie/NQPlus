@@ -6,11 +6,25 @@ import java.util.*;
  * Places are value objects holding a (file,rank) tuple.
  */
 public class Place {
-    public int file;
-    public int rank;
+    private int file;
+    private int rank;
     public Place(int x,int y) {
         file = x;
         rank = y;
+    }
+    /**
+     * attacks determines if this queen attacks a given square
+     */
+    public boolean attacks(int x,int y) {
+        // assumption! we always place queens on a new file
+        // so no check for vertical attack
+        if(rank == y) {
+            return true; // horizontal attack
+        }
+        if(Math.abs(x - file) == Math.abs(y - rank)) {
+            return true; // diagonal attack
+        }
+	return false;
     }
     /**
      * calculateGCD calculates the Greatest Common Denominator of its arguments
@@ -26,11 +40,11 @@ public class Place {
      * which are aligned with this Place and the other Place.  These
      * places hence must be avoided by subsequent queens.
      *
-     * @param b     the current board
+     * @param n     size of the current board
      * @param other square to align with
      * @return set of Places to be avoided
      */
-    public Set<Place> alignedPlaces(Board b, Place other) {
+    public Set<Place> alignedPlaces(int n, Place other) {
         Set<Place> avoid = new HashSet<Place>();
         // find offset...
         int dx = file - other.file;
@@ -44,7 +58,7 @@ public class Place {
         int u = file+dx;
         int v = rank+dy;
         // while we're still on the board
-        while(u < b.n && v>=0 && v<b.n) {
+        while(u<n && v>=0 && v<n) {
             // avoid aligned squares
             avoid.add(new Place(u,v));
             u += dx;

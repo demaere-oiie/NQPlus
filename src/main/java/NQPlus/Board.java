@@ -7,11 +7,11 @@ import nqplus.Place;
  */
 public class Board {
     /** size of the board */
-    public int n;
+    private int n;
     /** queens placed so far */
-    public List<Place> queens; 
+    private List<Place> queens; 
     /** squares to avoid due to alignment */
-    public Set<Place> avoid;
+    private Set<Place> avoid;
 
     /**
      * construct a blank Board
@@ -37,7 +37,7 @@ public class Board {
         avoid = new HashSet<Place>();
         avoid.addAll(b.avoid);
         for( Place q : b.queens ) {
-            avoid.addAll(latest.alignedPlaces(b,q));
+            avoid.addAll(latest.alignedPlaces(b.n,q));
         }
     }
     /**
@@ -50,14 +50,9 @@ public class Board {
     private Place tryPlace(int x, int y) {
         // check for attacks by existing queens
         for( Place q : queens ) {
-            // assumption! we always place on a new file
-	    // so no check for vertical attack
-            if(q.rank == y) {
-                return null; // horizontal attack
-            }
-            if(Math.abs(x - q.file) == Math.abs(y - q.rank)) {
-                return null; // diagonal attack
-            }
+	    if(q.attacks(x,y)) {
+		return null;
+	    }
         }
 	Place p = new Place(x,y);
         // check that we avoid alignment
