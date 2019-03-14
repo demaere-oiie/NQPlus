@@ -13,7 +13,7 @@ so queens on A1, C2 and E3, despite not attacking each other, form
 a straight line at some angle.
  * </PRE>
  * We limit N to 25 for the algebraic chess notation, but this is
- * no great loss, as we both use a cubic algorithm and don't stream
+ * no great loss, as we use an exponential algorithm and don't stream
  * the solutions, hence N&gt;16 is already prohibitive to compute.
  */
 public class App {
